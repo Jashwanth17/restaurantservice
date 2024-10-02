@@ -1,7 +1,7 @@
 class Restaurant {
   constructor(name, location, cuisine) {
       this.name = name;
-      this.location = location;
+      this.address = location;
       this.cuisine = cuisine;
   }
 
@@ -10,4 +10,4 @@ class Restaurant {
   }
 }
 
-module.exports = Restaurant;
+module.exports = Restaurant; 

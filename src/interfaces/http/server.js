@@ -1,4 +1,4 @@
-/*const express = require('express');
+const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const router = require('./router');
@@ -22,27 +22,4 @@ const start = () => {
   });
 };
 
-module.exports = { app, start }; */
-
-const express = require('express')
-
-module.exports = ({ config, router, logger, auth }) => {
-  const app = express()
-
-  app.disable('x-powered-by')
-  app.use(auth.initialize())
-  app.use(router)
-
-  // we define our static folder
-  app.use(express.static('public'))
-
-  return {
-    app,
-    start: () => new Promise((resolve) => {
-      const http = app.listen(config.port, () => {
-        const { port } = http.address()
-        logger.info(`🤘 API - Port ${port}`)
-      })
-    })
-  }
-}
+module.exports = { app, start };
