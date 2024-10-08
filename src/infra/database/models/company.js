@@ -1,14 +1,7 @@
-const { DataTypes } = require('sequelize');
 const { sequelize } = require('../index');
+const { DataTypes } = require('sequelize');
 
-const Company = sequelize.define('Company', {
-
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-
+const Restaurant = sequelize.define('Restaurant', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -21,10 +14,6 @@ const Company = sequelize.define('Company', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-
-     
-    timestamps: true, 
-
 });
 
-module.exports = Company; 
+module.exports = Restaurant; 

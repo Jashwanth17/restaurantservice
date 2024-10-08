@@ -1,34 +1,59 @@
-
 const Restaurant = require('./company');
 
-let restaurants = []; // In-memory storage for restaurants
-
-const addRestaurant = (data) => {
-    const restaurant = new Restaurant(data.name, data.location, data.cuisine);
-    restaurants.push(restaurant);
-    return restaurant;
+// Add a new restaurant to the database
+const addRestaurant = async (data) => {
+    try {
+        const restaurant = await Restaurant.create({
+            name: data.name,
+            location: data.location,
+            cuisine: data.cuisine,
+        });
+        return restaurant;
+    } catch (error) {
+        throw new Error('Error adding restaurant: ' + error.message);
+    }
 };
 
-const updateRestaurant = (id, data) => {
-    const restaurant = restaurants[id];
-    if (!restaurant) throw new Error('Restaurant not found');
-    restaurant.name = data.name || restaurant.name;
-    restaurant.location = data.location || restaurant.location;
-    restaurant.cuisine = data.cuisine || restaurant.cuisine;
-    return restaurant;
+// Update an existing restaurant in the database
+const updateRestaurant = async (id, data) => {
+    try {
+        const restaurant = await Restaurant.findByPk(id);
+        if (!restaurant) throw new Error('Restaurant not found');
+
+        // Update restaurant details
+        restaurant.name = data.name || restaurant.name;
+        restaurant.location = data.location || restaurant.location;
+        restaurant.cuisine = data.cuisine || restaurant.cuisine;
+        await restaurant.save(); 
+
+        return restaurant;
+    } catch (error) {
+        throw new Error('Error updating restaurant: ' + error.message);
+    }
 };
 
-const deleteRestaurant = (id) => {
-    const restaurant = restaurants[id];
-    if (!restaurant) throw new Error('Restaurant not found');
-    restaurants.splice(id, 1);
-    return restaurant;
+// Delete a restaurant from the database
+const deleteRestaurant = async (id) => {
+    try {
+        const restaurant = await Restaurant.findByPk(id)
+        if (!restaurant) throw new Error('Restaurant not found');
+
+        await restaurant.destroy(); 
+        return restaurant;
+    } catch (error) {
+        throw new Error('Error deleting restaurant: ' + error.message);
+    }
 };
 
-const getRestaurantDetails = (id) => {
-    const restaurant = restaurants[id];
-    if (!restaurant) throw new Error('Restaurant not found');
-    return restaurant;
+// Get details of a restaurant from the database
+const getRestaurantDetails = async (id) => {
+    try {
+        const restaurant = await Restaurant.findByPk(id);
+        if (!restaurant) throw new Error('Restaurant not found');
+        return restaurant;
+    } catch (error) {
+        throw new Error('Error fetching restaurant details: ' + error.message);
+    }
 };
 
 module.exports = {

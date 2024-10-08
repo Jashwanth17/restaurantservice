@@ -1,24 +1,25 @@
-const { createCompany, getCompanyById, updateCompany, deleteCompany } = require('../../database/models/company');
+const { createRestaurant, getRestaurantById, updateRestaurant, deleteRestaurant } = require('../../database/models/company');
 
-const addCompany = async (data) => {
-    return await createCompany(data);
+const addRestaurant = async (data) => {
+    return await createRestaurant(data);
 };
 
-const getCompany = async (id) => {
-    return await getCompanyById(id);
+const getRestaurant = async (id) => {
+    return await getRestaurantById(id);
 };
 
-const editCompany = async (id, data) => {
-    return await updateCompany(id, data);
+const editRestaurant = async (id, data) => {
+    return await updateRestaurant(id, data);
 };
 
-const removeCompany = async (id) => {
-    return await deleteCompany(id);
+const removeRestaurant = async (id) => {
+    return await deleteRestaurant(id);
 };
 
 module.exports = {
-    addCompany,
-    getCompany,
-    editCompany,
-    removeCompany,
+    addRestaurant,
+    getRestaurant,
+    editRestaurant,
+    removeRestaurant,
 };
+

@@ -1,13 +1,20 @@
-class Restaurant {
-  constructor(name, location, cuisine) {
-      this.name = name;
-      this.address = location;
-      this.cuisine = cuisine;
-  }
+const { DataTypes } = require('sequelize');
+const sequelize = require('../../../config/database');
 
-  displayInfo() {
-      return `${this.name}, located at ${this.location}, serves ${this.cuisine} cuisine.`;
-  }
-}
+const Restaurant = sequelize.define('Restaurant', {
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    location: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    cuisine: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+});
 
-module.exports = Restaurant; 
+module.exports = Restaurant;
+

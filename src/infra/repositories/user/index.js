@@ -1,7 +1,5 @@
-// src/infra/repositories/user/index.js
 const { createUser, getUserById, updateUser, deleteUser } = require('../../database/models/user');
 
-// CRUD operations for User
 const addUser = async (data) => {
     return await createUser(data);
 };

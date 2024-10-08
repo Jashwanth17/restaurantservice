@@ -1,8 +1,18 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
-    host: process.env.DB_HOST,
-    dialect: 'postgres',
+require('dotenv').config();  
+
+const { Sequelize } = require('sequelize');
+
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not defined in your environment variables.');
+}
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres', 
+    protocol: 'postgres', 
+    logging: false, 
+    dialectOptions: {
+        ssl: process.env.DB_SSL === 'true'
+    }
 });
 
 module.exports = sequelize;
-
