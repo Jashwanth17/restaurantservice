@@ -7,7 +7,6 @@ const {
 } = require('./index');
 
 const router = express.Router();
-
 /**
  * @swagger
  * tags:
@@ -17,7 +16,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /restaurant:
+ * /api/companies:
  *   post:
  *     summary: Create a new restaurant
  *     tags: [Restaurant]
@@ -54,7 +53,7 @@ router.post('/', async (req, res) => {
 
 /**
  * @swagger
- * /restaurant/{id}:
+ * /api/companies/{id}:
  *   get:
  *     summary: Get a restaurant by ID
  *     tags: [Restaurant]
@@ -84,7 +83,7 @@ router.get('/:id', async (req, res) => {
 
 /**
  * @swagger
- * /restaurant/{id}:
+ * /api/companies/{id}:
  *   put:
  *     summary: Update a restaurant
  *     tags: [Restaurant]
@@ -127,7 +126,7 @@ router.put('/:id', async (req, res) => {
 
 /**
  * @swagger
- * /restaurant/{id}:
+ * /api/companies/{id}:
  *   delete:
  *     summary: Delete a restaurant
  *     tags: [Restaurant]
@@ -154,4 +153,3 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
-
