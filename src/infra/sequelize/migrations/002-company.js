@@ -1,14 +1,13 @@
-'use strict'
-module.exports = {
+odule.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.createTable('companies', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-        primaryKey: true,
-        allowNull: false
-      },
-      name: {
+        primaryKey: true,               
+        allowNull: false                
+    },
+    name: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -16,35 +15,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      contact: {
+      cusine: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      tin: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      sss: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      philhealth: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      isDeleted: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-      },
-      createdBy: {
-        type: Sequelize.UUID,
-        allowNull: false
-      },
-      updatedBy: {
-        type: Sequelize.UUID,
-        allowNull: true
-      },
-      createdAt: {
+     createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')

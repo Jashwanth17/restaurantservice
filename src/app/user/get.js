@@ -1,4 +1,3 @@
-// src/app/user/get.js
 const User = require('../../infra/database/models/user');
 
 const getUserDetails = async (req, res) => {

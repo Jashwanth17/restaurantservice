@@ -1,15 +1,20 @@
-class Token {
-  constructor(value, expiresIn = 3600) {
-      this.value = value;
-      this.createdAt = new Date();
-      this.expiresIn = expiresIn; 
-  }
+const jwt = require('jsonwebtoken');
 
-  isValid() {
-      const currentTime = new Date();
-      const expirationTime = new Date(this.createdAt.getTime() + this.expiresIn * 1000);
-      return currentTime < expirationTime; 
-  }
+class Token {
+    // Generate a JWT token
+    static generateToken(payload) {
+        return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+    }
+
+    // Verify a JWT token
+    static verifyToken(token) {
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            return decoded;
+        } catch (error) {
+            throw new Error('Token is invalid or expired');
+        }
+    }
 }
 
 module.exports = Token;
