@@ -5,14 +5,9 @@ const {
     modifyRestaurant,
     removeRestaurant,
 } = require('./index');
+const authenticate = require('../../auth'); // JWT middleware for token verification
 
 const router = express.Router();
-/**
- * @swagger
- * tags:
- *   name: Restaurant
- *   description: Restaurant management API
- */
 
 /**
  * @swagger
@@ -42,9 +37,12 @@ const router = express.Router();
  *       500:
  *         description: Error creating restaurant
  */
-router.post('/', async (req, res) => {
+router.post('/', authenticate, async (req, res) => {
     try {
-        const restaurant = await createRestaurant(req.body);
+        const userId = req.user.id; // Extracted from token
+        const restaurantData = { ...req.body, userId }; // Add userId to restaurant data
+
+        const restaurant = await createRestaurant(restaurantData);
         res.status(201).json(restaurant);
     } catch (error) {
         res.status(500).json({ message: 'Error creating restaurant', error: error.message });
@@ -72,7 +70,7 @@ router.post('/', async (req, res) => {
  *       500:
  *         description: Error retrieving restaurant
  */
-router.get('/:id', async (req, res) => {
+router.get('/:id', authenticate, async (req, res) => {
     try {
         const restaurant = await retrieveRestaurant(req.params.id);
         res.status(200).json(restaurant);
@@ -115,9 +113,10 @@ router.get('/:id', async (req, res) => {
  *       500:
  *         description: Error updating restaurant
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', authenticate, async (req, res) => {
     try {
-        const updatedRestaurant = await modifyRestaurant(req.params.id, req.body);
+        const userId = req.user.id; // Extracted from token
+        const updatedRestaurant = await modifyRestaurant(req.params.id, req.body, userId); // Pass userId for validation
         res.status(200).json(updatedRestaurant);
     } catch (error) {
         res.status(500).json({ message: 'Error updating restaurant', error: error.message });
@@ -143,9 +142,10 @@ router.put('/:id', async (req, res) => {
  *       500:
  *         description: Error deleting restaurant
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticate, async (req, res) => {
     try {
-        await removeRestaurant(req.params.id);
+        const userId = req.user.id; // Extracted from token
+        await removeRestaurant(req.params.id, userId); // Pass userId for validation
         res.status(204).send();
     } catch (error) {
         res.status(500).json({ message: 'Error deleting restaurant', error: error.message });
